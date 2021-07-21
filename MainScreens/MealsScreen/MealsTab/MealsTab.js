@@ -52,7 +52,6 @@ class MealsTab extends Component {
   }
 
   pullMealsData() {
-    console.log("pull meals");
     let requestOptions = {
       method: "GET",
       headers: new Headers({
@@ -127,7 +126,6 @@ class MealsTab extends Component {
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
-        console.log(result.message);
         this.pullMealsData();
       });
   }
@@ -151,7 +149,6 @@ class MealsTab extends Component {
       fetch(url, requestOptions)
         .then((res) => res.json())
         .then((result) => {
-          console.log(result.message);
           this.clearInputArea();
           this.pullMealsData();
         });

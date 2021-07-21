@@ -53,7 +53,6 @@ class ActivitiesTab extends Component {
   }
 
   pullActivitiesData() {
-    console.log("pull activities");
     let requestOptions = {
       method: "GET",
       headers: new Headers({
@@ -131,7 +130,6 @@ class ActivitiesTab extends Component {
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
-        console.log(result.message);
         this.pullActivitiesData();
       });
   }
@@ -157,7 +155,6 @@ class ActivitiesTab extends Component {
       fetch(url, requestOptions)
         .then((res) => res.json())
         .then((result) => {
-          console.log(result.message);
           this.clearInputArea();
           this.pullActivitiesData();
         });

@@ -18,7 +18,6 @@ class DailyCard extends Component {
   }
 
   updateCard() {
-    //console.log(this.props.data);
     let dailyCalories = 0;
     let dailyActivity = 0;
     let dailyProtein = 0;

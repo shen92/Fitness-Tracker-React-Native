@@ -105,7 +105,6 @@ class AddActivityTab extends Component {
         .then((res) => res.json())
         .then((res) => {
           if (res.message === "Activity created!") {
-            console.log(res.message);
             alert(res.message);
             this.clearInputArea();
           }

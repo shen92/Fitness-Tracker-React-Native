@@ -111,7 +111,6 @@ class SignUpScreen extends Component {
       }
       if (res.status === 200) {
         alert("New user created!");
-        console.log("(System) User create success");
         this.clearInputFields();
         this.props.navigation.navigate("signIn");
       }

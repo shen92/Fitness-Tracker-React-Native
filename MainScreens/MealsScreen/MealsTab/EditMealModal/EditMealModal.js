@@ -64,7 +64,6 @@ class EditMealModal extends Component {
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.message);
         this.clearInputArea();
         this.pullFoodsData();
       });
@@ -87,7 +86,6 @@ class EditMealModal extends Component {
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
-        console.log(result.message);
         this.clearInputArea();
         this.pullFoodsData();
       });
@@ -118,7 +116,6 @@ class EditMealModal extends Component {
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
-        console.log(result.message);
         this.clearInputArea();
         this.pullFoodsData();
       });

@@ -97,7 +97,6 @@ class AddMealTab extends Component {
         .then((res) => res.json())
         .then((res) => {
           if (res.message === "Meal created!") {
-            console.log(res.message);
             alert(res.message);
             this.clearInputArea();
           }

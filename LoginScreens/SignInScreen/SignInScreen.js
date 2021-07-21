@@ -95,7 +95,6 @@ class SignInScreen extends Component {
         await this.setUser();
         this.props.navigation.navigate("Home");
         this.clearInputFields();
-        console.log("(System) Login success");
       } else if (response.status === 401) {
         alert("Invalid username or password!");
       }
