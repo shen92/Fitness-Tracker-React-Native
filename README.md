@@ -5,18 +5,18 @@
 The following API can be accessed at `https://mysqlcs639.cs.wisc.edu`
 
 | Route                                | Auth Required | Token Required | Get | Post | Put | Delete |
-|--------------------------------------|---------------|----------------|-----|------|-----|--------|
-| /login                               | ✔︎             |                | ✔︎   |      |     |        |
-| /users                               |               |                |     | ✔︎    |     |        |
-| /users/`<username>`                  |               | ✔︎              | ✔︎   | ✔︎    | ✔︎   | ✔︎      |
-| /meals                               |               | ✔︎              | ✔︎   | ✔︎    |     |        |
-| /meals/`<meal_id>`                   |               | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
-| /meals/`<meal_id>`/foods             |               | ✔︎              | ✔︎   | ✔︎    |     |        |
-| /meals/`<meal_id>`/foods/`<food_id>` |               | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
-| /activities                          |               | ✔︎              | ✔︎   | ✔︎    |     |        |
-| /activities/`<activity_id>`          |               | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
-| /foods                               |               |                | ✔︎   |      |     |        |
-| /foods/`food_id`                     |               |                | ✔︎   |      |     |        |
+| ------------------------------------ | ------------- | -------------- | --- | ---- | --- | ------ |
+| /login                               | ✔︎            |                | ✔︎  |      |     |        |
+| /users                               |               |                |     | ✔︎   |     |        |
+| /users/`<username>`                  |               | ✔︎             | ✔︎  | ✔︎   | ✔︎  | ✔︎     |
+| /meals                               |               | ✔︎             | ✔︎  | ✔︎   |     |        |
+| /meals/`<meal_id>`                   |               | ✔︎             | ✔︎  |      | ✔︎  | ✔︎     |
+| /meals/`<meal_id>`/foods             |               | ✔︎             | ✔︎  | ✔︎   |     |        |
+| /meals/`<meal_id>`/foods/`<food_id>` |               | ✔︎             | ✔︎  |      | ✔︎  | ✔︎     |
+| /activities                          |               | ✔︎             | ✔︎  | ✔︎   |     |        |
+| /activities/`<activity_id>`          |               | ✔︎             | ✔︎  |      | ✔︎  | ✔︎     |
+| /foods                               |               |                | ✔︎  |      |     |        |
+| /foods/`food_id`                     |               |                | ✔︎  |      |     |        |
 
 ### Auth and Tokens
 
@@ -39,13 +39,13 @@ So you want the user to sign up. This can be done with a `POST` request to the `
 }
 ```
 
-Only the `username` and `password` fields are required. Don't worry about the other ones for creating a user, as they can be updated later with `PUT` requests. 
+Only the `username` and `password` fields are required. Don't worry about the other ones for creating a user, as they can be updated later with `PUT` requests.
 
 If the user is successfully created, you will recieve a positive message back from the server. You will then need to login with that user.
 
 #### Login
 
-Alright, now you have a user and their password, but you need to log them in. You can do this via the `/login` route, with a `GET` request. Effectively, you will be sending the username and password in the authorization header (Basic Auth) of the `GET`, and will recieve back a token that you can use to access information from the API. This call takes in no message body. The token you receive can then be added in the header under the `x-access-token` field. 
+Alright, now you have a user and their password, but you need to log them in. You can do this via the `/login` route, with a `GET` request. Effectively, you will be sending the username and password in the authorization header (Basic Auth) of the `GET`, and will recieve back a token that you can use to access information from the API. This call takes in no message body. The token you receive can then be added in the header under the `x-access-token` field.
 
 ### USER
 
@@ -60,7 +60,7 @@ Users cannot query `/users`, since that would involve exposing all the other use
 - `goalDailyFat`
 - `goalDailyActivity`
 
-Additionally, you can delete unused users using the `DELETE` method on the `/users/<user_id>` route. As articulated in the Final Notes, please be a good citizen and clean up after yourself. 
+Additionally, you can delete unused users using the `DELETE` method on the `/users/<user_id>` route. As articulated in the Final Notes, please be a good citizen and clean up after yourself.
 
 ### USER MEALS
 
@@ -88,7 +88,7 @@ You can also access an individual meal by `meal_id` (`id`), using `GET` on `/mea
 }
 ```
 
-Posting to `/meals` creates a new meal. If not specified in ISO format, the `date` will default to the current date and time. You cannot specify the `id`, only the `name` and `date`. Using the `PUT` method is possible for the `/meals/<meal_id>` route, such that you can modify the `name` and `date`. Using `DELETE` on an individual meal removes the item (and all associated foods). 
+Posting to `/meals` creates a new meal. If not specified in ISO format, the `date` will default to the current date and time. You cannot specify the `id`, only the `name` and `date`. Using the `PUT` method is possible for the `/meals/<meal_id>` route, such that you can modify the `name` and `date`. Using `DELETE` on an individual meal removes the item (and all associated foods).
 
 ### USER FOODS
 
@@ -159,4 +159,4 @@ As a convenience, we have provided a set of basic foods that you can use to crea
 
 ## Final Notes
 
-While the server API articulated above does adhere to standard conventions in security, you should not assume that it is completely secure. As such, do not use sensitive usernames and passwords for your testing. If you need to create a number of users for testing your login/signup, please be a good citizen and `DELETE` your unused users, so that the server does not get bogged down. 
+While the server API articulated above does adhere to standard conventions in security, you should not assume that it is completely secure. As such, do not use sensitive usernames and passwords for your testing. If you need to create a number of users for testing your login/signup, please be a good citizen and `DELETE` your unused users, so that the server does not get bogged down.
