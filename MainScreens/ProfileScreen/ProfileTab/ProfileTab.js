@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { styles } from "../Styles";
 import UserInputArea from "./UserInputArea";
+import { Config } from "../../../Config";
 
 //Scroll Screen (no bottom)
 class ProfileTab extends Component {
@@ -57,7 +58,7 @@ class ProfileTab extends Component {
         Authorization: "Basic Og==",
       }),
     };
-    let url = "https://mysqlcs639.cs.wisc.edu/users/" + this.state.username;
+    const url = `${Config.BASE_URL}/users/${this.state.username}`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -139,7 +140,7 @@ class ProfileTab extends Component {
 
   pushUserData() {
     if (this.isValidData()) {
-      let url = "https://mysqlcs639.cs.wisc.edu/users/" + this.state.username;
+      const url = `${Config.BASE_URL}/users/${this.state.username}`;
       fetch(url, {
         method: "PUT",
         headers: {

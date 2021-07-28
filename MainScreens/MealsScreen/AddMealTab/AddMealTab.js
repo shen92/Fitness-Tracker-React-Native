@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { styles } from "../Styles";
 import AddMealInputArea from "./AddMealInputArea";
+import { Config } from "../../../Config";
 
 class AddMealTab extends Component {
   constructor(props) {
@@ -92,14 +93,12 @@ class AddMealTab extends Component {
           date: this.state.date.toISOString(),
         }),
       };
-      let url = "https://mysqlcs639.cs.wisc.edu/meals/";
+      const url = `${Config.BASE_URL}/meals/`;
       fetch(url, requestOptions)
         .then((res) => res.json())
         .then((res) => {
-          if (res.message === "Meal created!") {
-            alert(res.message);
-            this.clearInputArea();
-          }
+          alert("Meal created!");
+          this.clearInputArea();
         });
     } else {
       alert("Please check your input!");

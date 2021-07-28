@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import DailyCardList from "./DailyCardList";
 import WeeklyLinearChartList from "./WeeklyLinearChartList";
+import { Config } from "../../../Config";
 
 class WeeklySummaryTab extends Component {
   constructor(props) {
@@ -76,7 +77,7 @@ class WeeklySummaryTab extends Component {
         Authorization: "Basic Og==",
       }),
     };
-    let url = "https://mysqlcs639.cs.wisc.edu/activities/";
+    const url = `${Config.BASE_URL}/activities`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -98,7 +99,7 @@ class WeeklySummaryTab extends Component {
         Authorization: "Basic Og==",
       }),
     };
-    let url = "https://mysqlcs639.cs.wisc.edu/meals/";
+    const url = `${Config.BASE_URL}/meals`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -132,7 +133,7 @@ class WeeklySummaryTab extends Component {
         Authorization: "Basic Og==",
       }),
     };
-    let url = "https://mysqlcs639.cs.wisc.edu/meals/" + id + "/foods";
+    const url = `${Config.BASE_URL}/meals/${id}/foods`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {

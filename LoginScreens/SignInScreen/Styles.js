@@ -33,9 +33,10 @@ export const styles = StyleSheet.create({
     marginTop: 2,
     marginBottom: 8,
     borderColor: "#eeeeee",
-    borderWidth: 1,
+    borderWidth: 0.5,
     fontSize: 18,
     color: "#eeeeee",
+    paddingLeft: 5,
   },
 
   buttonsContainer: {

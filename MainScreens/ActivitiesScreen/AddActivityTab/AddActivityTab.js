@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { AsyncStorage, StyleSheet, Text, View } from "react-native";
 import { styles } from "../Styles";
 import AddActivityInputArea from "./AddActivityInputArea";
+import { Config } from "../../../Config";
 
 //Static Screen
 class AddActivityTab extends Component {
@@ -100,15 +101,13 @@ class AddActivityTab extends Component {
           calories: this.state.calories,
         }),
       };
-      let url = "https://mysqlcs639.cs.wisc.edu/activities/";
-      fetch(url, requestOptions)
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.message === "Activity created!") {
-            alert(res.message);
-            this.clearInputArea();
-          }
-        });
+      const url = `${Config.BASE_URL}/activities/`;
+      fetch(url, requestOptions).then((res) => {
+        if (res.status === 200) {
+          alert("Activity created!");
+          this.clearInputArea();
+        }
+      });
     } else {
       alert("Please check your input!");
     }

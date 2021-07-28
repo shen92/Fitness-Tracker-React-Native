@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Modal, StyleSheet, Text, View } from "react-native";
 import EditMealInputArea from "./EditMealInputArea";
+import { Config } from "../../../../Config";
 
 class EditMealModal extends Component {
   constructor(props) {
@@ -30,8 +31,7 @@ class EditMealModal extends Component {
         "x-access-token": this.props.data.token,
       }),
     };
-    let url =
-      "https://mysqlcs639.cs.wisc.edu/meals/" + this.props.value.id + "/foods";
+    const url = `${Config.BASE_URL}/meals/${this.props.value.id}/foods`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -59,8 +59,7 @@ class EditMealModal extends Component {
         fat: this.state.fat,
       }),
     };
-    let url =
-      "https://mysqlcs639.cs.wisc.edu/meals/" + this.props.value.id + "/foods";
+    const url = `${Config.BASE_URL}/meals/${this.props.value.id}/foods`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((res) => {
@@ -78,11 +77,7 @@ class EditMealModal extends Component {
         "x-access-token": this.props.data.token,
       },
     };
-    let url =
-      "https://mysqlcs639.cs.wisc.edu/meals/" +
-      this.props.value.id +
-      "/foods/" +
-      id;
+    const url = `${Config.BASE_URL}/meals/${this.props.value.id}/foods/${id}`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -108,11 +103,7 @@ class EditMealModal extends Component {
         fat: this.state.fat,
       }),
     };
-    let url =
-      "https://mysqlcs639.cs.wisc.edu/meals/" +
-      this.props.value.id +
-      "/foods/" +
-      id;
+    const url = `${Config.BASE_URL}/meals/${this.props.value.id}/foods/${id}`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -166,7 +157,7 @@ class EditMealModal extends Component {
         </View>
         <View style={local.modalBottom}>
           <Button
-            title={"cancel"}
+            title={"Cancel"}
             onPress={() => this.props.hideEditMealModal()}
           />
         </View>
@@ -214,7 +205,7 @@ const local = StyleSheet.create({
   },
 
   modalTitle: {
-    fontFamily: "American Typewriter",
+    fontFamily: "Copperplate",
     alignSelf: "center",
     fontSize: 25,
     marginTop: 60,

@@ -47,6 +47,7 @@ class EditMealInputArea extends Component {
   getInputBox(field, initValue) {
     return (
       <TextInput
+        autoCapitalize="none"
         style={local.userInputBox}
         value={"" + initValue}
         onChangeText={(input) => this.props.setNewMeal(field, input)}
@@ -162,9 +163,10 @@ const local = StyleSheet.create({
     marginTop: 2,
     marginBottom: 8,
     borderColor: "#222831",
-    borderWidth: 1,
+    borderWidth: 0.5,
     fontSize: 18,
     color: "#222831",
+    paddingLeft: 5,
   },
 
   foodListContainer: {

@@ -40,7 +40,7 @@ class FoodsListItem extends Component {
         </View>
         <View style={local.buttonContainer}>
           <Button
-            title={"View/Edit"}
+            title={"View / Edit"}
             onPress={() => this.handleButtonPress()}
           />
           <EditFoodModal
@@ -64,8 +64,8 @@ const local = StyleSheet.create({
     width: "100%",
     height: 160,
     alignSelf: "center",
-    borderWidth: 1,
-    borderRadius: 10,
+    borderWidth: 0.5,
+    borderRadius: 5,
     borderColor: "#aaaaaa",
     margin: 2,
   },

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, TextInput, StyleSheet, AsyncStorage } from "react-native";
 import { Button } from "react-native-elements";
 import { styles } from "./Styles";
+import { Config } from "../../Config";
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class SignUpScreen extends Component {
         <TextInput
           secureTextEntry={true}
           style={styles.inputBox}
+          autoCapitalize="none"
           onChangeText={(password) => this.setState({ password: password })}
         />
       );
@@ -43,6 +45,7 @@ class SignUpScreen extends Component {
         <TextInput
           secureTextEntry={false}
           style={styles.inputBox}
+          autoCapitalize="none"
           onChangeText={(username) => this.setState({ username: username })}
         />
       );
@@ -95,26 +98,30 @@ class SignUpScreen extends Component {
   }
 
   signUpUser() {
-    fetch("https://mysqlcs639.cs.wisc.edu/users", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
-      }),
-    }).then((res) => {
-      if (res.status === 409) {
-        alert(this.state.username + " has already been used!");
-      }
-      if (res.status === 200) {
-        alert("New user created!");
-        this.clearInputFields();
-        this.props.navigation.navigate("signIn");
-      }
-    });
+    try {
+      fetch(`${Config.BASE_URL}/users`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: this.state.username,
+          password: this.state.password,
+        }),
+      }).then((res) => {
+        if (res.status === 409) {
+          alert(this.state.username + " has already been used!");
+        }
+        if (res.status === 200) {
+          alert("New user created!");
+          this.clearInputFields();
+          this.props.navigation.navigate("signIn");
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   clearInputFields() {
@@ -126,7 +133,7 @@ class SignUpScreen extends Component {
     return (
       <View style={styles.root}>
         <View style={styles.appNameContainer}>
-          {this.getScreenTitle("New Account")}
+          {this.getScreenTitle("Sign Up")}
         </View>
         <View style={styles.inputContainer}>
           {this.getInputArea("Username", 0)}

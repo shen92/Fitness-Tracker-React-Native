@@ -22,7 +22,7 @@ class EditActivityModal extends Component {
           />
         </View>
         <View style={local.modalBottom}>
-          <Button title={"cancel"} onPress={() => this.props.hideModal()} />
+          <Button title={"Cancel"} onPress={() => this.props.hideModal()} />
         </View>
       </React.Fragment>
     );
@@ -68,7 +68,7 @@ const local = StyleSheet.create({
   },
 
   modalTitle: {
-    fontFamily: "American Typewriter",
+    fontFamily: "Copperplate",
     alignSelf: "center",
     fontSize: 25,
     marginTop: 60,

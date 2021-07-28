@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import MealsList from "./MealsList";
+import { Config } from "../../../Config";
 
 //Scroll Screen
 class MealsTab extends Component {
@@ -61,7 +62,7 @@ class MealsTab extends Component {
         Authorization: "Basic Og==",
       }),
     };
-    let url = "https://mysqlcs639.cs.wisc.edu/meals/";
+    const url = `${Config.BASE_URL}/meals/`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -70,7 +71,11 @@ class MealsTab extends Component {
   }
 
   setMealsData(result) {
-    this.setState({ meals: result.meals });
+    this.setState({
+      meals: result.meals.sort((a1, a2) => {
+        return new Date(a2.date) - new Date(a1.date);
+      }),
+    });
   }
 
   //Component structure functions
@@ -122,7 +127,7 @@ class MealsTab extends Component {
         "x-access-token": this.state.token,
       },
     };
-    let url = "https://mysqlcs639.cs.wisc.edu/meals/" + id;
+    const url = `${Config.BASE_URL}/meals/${id}`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -145,7 +150,7 @@ class MealsTab extends Component {
           //date: this.state.date.toISOString(),
         }),
       };
-      let url = "https://mysqlcs639.cs.wisc.edu/meals/" + id;
+      const url = `${Config.BASE_URL}/meals/${id}`;
       fetch(url, requestOptions)
         .then((res) => res.json())
         .then((result) => {

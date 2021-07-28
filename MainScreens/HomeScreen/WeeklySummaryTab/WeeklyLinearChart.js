@@ -1,41 +1,82 @@
 import React, { Component } from "react";
-import { StackedAreaChart } from "react-native-svg-charts";
+import { StackedAreaChart, LineChart, Grid } from "react-native-svg-charts";
 import * as shape from "d3-shape";
 import { StyleSheet, View, Text } from "react-native";
 
 class WeeklyLinearChart extends Component {
+  normalize(data) {
+    return data.map((item) => {
+      return {
+        activity: item.activity > 0 ? item.activity : 0,
+        calories: item.calories > 0 ? item.calories : 0,
+      };
+    });
+  }
+
   getCaloriesChart() {
     const colors = ["#9852f9", "#c299fc"];
-    const keys = ["calories", "activity"];
+
+    const data = [
+      {
+        data: this.props.data.calories.map((item) =>
+          item.activity < 0 ? 0 : item.activity
+        ),
+        svg: { stroke: colors[0] },
+      },
+      {
+        data: this.props.data.calories.map((item) =>
+          item.calories < 0 ? 0 : item.calories
+        ),
+        svg: { stroke: colors[1] },
+      },
+    ];
 
     return (
       <View>
-        <StackedAreaChart
+        <LineChart
           style={local.chart}
+          data={data}
           contentInset={{ top: 10, bottom: 10 }}
-          data={this.props.data.calories}
-          keys={keys}
-          colors={colors}
-          curve={shape.curveNatural}
-        ></StackedAreaChart>
+        >
+          <Grid />
+        </LineChart>
       </View>
     );
   }
 
   getNutritionChart() {
     const colors = ["#3c9d9b", "#00adb5", "#52de97"];
-    const keys = ["protein", "carbohydrates", "fat"];
+
+    const data = [
+      {
+        data: this.props.data.nutrition.map((item) =>
+          item.carbohydrates < 0 ? 0 : item.carbohydrates
+        ),
+        svg: { stroke: colors[0] },
+      },
+      {
+        data: this.props.data.nutrition.map((item) =>
+          item.fat < 0 ? 0 : item.fat
+        ),
+        svg: { stroke: colors[1] },
+      },
+      {
+        data: this.props.data.nutrition.map((item) =>
+          item.protein < 0 ? 0 : item.protein
+        ),
+        svg: { stroke: colors[2] },
+      },
+    ];
 
     return (
       <View>
-        <StackedAreaChart
+        <LineChart
           style={local.chart}
+          data={data}
           contentInset={{ top: 10, bottom: 10 }}
-          data={this.props.data.nutrition}
-          keys={keys}
-          colors={colors}
-          curve={shape.curveNatural}
-        ></StackedAreaChart>
+        >
+          <Grid />
+        </LineChart>
       </View>
     );
   }
@@ -45,7 +86,7 @@ class WeeklyLinearChart extends Component {
       return (
         <View style={local.cardRoot}>
           <View style={local.titleContainer}>
-            <Text style={local.defaultText}>{this.props.title}</Text>
+            <Text style={local.defaultText}>Weekly Calories</Text>
           </View>
           <View style={local.chartContainer}>{this.getCaloriesChart()}</View>
         </View>
@@ -54,7 +95,7 @@ class WeeklyLinearChart extends Component {
       return (
         <View style={local.cardRoot}>
           <View style={local.titleContainer}>
-            <Text style={local.defaultText}>{this.props.title}</Text>
+            <Text style={local.defaultText}>Weekly Nutrition</Text>
           </View>
           <View style={local.chartContainer}>{this.getNutritionChart()}</View>
         </View>
@@ -72,6 +113,10 @@ const local = StyleSheet.create({
     marginRight: 5,
     borderColor: "#aaaaaa",
     alignItems: "center",
+    backgroundColor: "white",
+    borderWidth: 0.5,
+    borderRadius: 5,
+    borderColor: "#aaaaaa",
   },
 
   titleContainer: {
@@ -86,13 +131,15 @@ const local = StyleSheet.create({
   },
 
   chart: {
-    width: "98%",
-    height: "95%",
+    alignSelf: "center",
+    width: "95%",
+    height: "100%",
   },
 
   defaultText: {
+    marginTop: 5,
     color: "#222831",
-    fontSize: 20,
+    fontSize: 18,
   },
 });
 

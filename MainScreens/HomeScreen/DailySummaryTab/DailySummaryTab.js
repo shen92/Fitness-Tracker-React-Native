@@ -11,6 +11,7 @@ import {
 import { styles } from "../Styles";
 import DailySummaryStackChart from "./DailySummaryStackChart";
 import DailySummaryStatisticsTable from "./DailySummaryStatisticsTable";
+import { Config } from "../../../Config";
 
 //Static Screen
 class DailySummaryTab extends Component {
@@ -76,8 +77,8 @@ class DailySummaryTab extends Component {
     this.setChartData();
   }
 
-  pullUserProfileData() {
-    let requestOptions = {
+  async pullUserProfileData() {
+    const requestOptions = {
       method: "GET",
       headers: new Headers({
         Accept: "application/json",
@@ -86,7 +87,7 @@ class DailySummaryTab extends Component {
         Authorization: "Basic Og==",
       }),
     };
-    let url = "https://mysqlcs639.cs.wisc.edu/users/" + this.state.username;
+    const url = `${Config.BASE_URL}/users/${this.state.username}`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -105,8 +106,8 @@ class DailySummaryTab extends Component {
     this.setState({ goalDailyActivity: result.goalDailyActivity });
   }
 
-  pullActivitiesData() {
-    let requestOptions = {
+  async pullActivitiesData() {
+    const requestOptions = {
       method: "GET",
       headers: new Headers({
         Accept: "application/json",
@@ -115,7 +116,7 @@ class DailySummaryTab extends Component {
         Authorization: "Basic Og==",
       }),
     };
-    let url = "https://mysqlcs639.cs.wisc.edu/activities/";
+    const url = `${Config.BASE_URL}/activities`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -128,7 +129,7 @@ class DailySummaryTab extends Component {
   }
 
   pullMealsData() {
-    let requestOptions = {
+    const requestOptions = {
       method: "GET",
       headers: new Headers({
         Accept: "application/json",
@@ -137,7 +138,7 @@ class DailySummaryTab extends Component {
         Authorization: "Basic Og==",
       }),
     };
-    let url = "https://mysqlcs639.cs.wisc.edu/meals/";
+    const url = `${Config.BASE_URL}/meals`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -162,7 +163,7 @@ class DailySummaryTab extends Component {
 
   pullFoodData(id) {
     let foods = [];
-    let requestOptions = {
+    const requestOptions = {
       method: "GET",
       headers: new Headers({
         Accept: "application/json",
@@ -171,7 +172,7 @@ class DailySummaryTab extends Component {
         Authorization: "Basic Og==",
       }),
     };
-    let url = "https://mysqlcs639.cs.wisc.edu/meals/" + id + "/foods";
+    const url = `${Config.BASE_URL}/meals/${id}/foods`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -386,7 +387,7 @@ const local = StyleSheet.create({
   chartContainer: {
     flex: 1,
     flexDirection: "column",
-    height: 250,
+    height: 270,
     width: "100%",
     alignSelf: "center",
     alignItems: "center",

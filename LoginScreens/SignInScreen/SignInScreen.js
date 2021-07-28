@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet, AsyncStorage } from "react-native";
 import { Button } from "react-native-elements";
 import base64 from "base-64";
 import { styles } from "./Styles";
+import { Config } from "../../Config";
 
 class SignInScreen extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class SignInScreen extends Component {
       return (
         <TextInput
           secureTextEntry={true}
+          autoCapitalize="none"
           style={styles.inputBox}
           value={this.state.password}
           onChangeText={(password) => this.setState({ password: password })}
@@ -45,6 +47,7 @@ class SignInScreen extends Component {
       return (
         <TextInput
           secureTextEntry={false}
+          autoCapitalize="none"
           style={styles.inputBox}
           value={this.state.username}
           onChangeText={(username) => this.setState({ username: username })}
@@ -85,10 +88,7 @@ class SignInScreen extends Component {
     };
 
     try {
-      let response = await fetch(
-        "https://mysqlcs639.cs.wisc.edu/login",
-        requestOptions
-      );
+      let response = await fetch(`${Config.BASE_URL}/login`, requestOptions);
       let result = await response.json();
       if (response.status === 200) {
         this.setState({ token: result.token });
@@ -121,7 +121,7 @@ class SignInScreen extends Component {
     return (
       <View style={styles.root}>
         <View style={styles.appNameContainer}>
-          {this.getScreenTitle("MyFitness")}
+          {this.getScreenTitle("Fitness Tracker")}
         </View>
         <View style={styles.inputContainer}>
           {this.getInputArea("Username", 0)}
@@ -136,6 +136,11 @@ class SignInScreen extends Component {
   }
 
   render() {
+    AsyncStorage.getItem("token").then((token) => {
+      if (token) {
+        this.props.navigation.navigate("Home");
+      }
+    });
     return <React.Fragment>{this.showScreen()}</React.Fragment>;
   }
 }

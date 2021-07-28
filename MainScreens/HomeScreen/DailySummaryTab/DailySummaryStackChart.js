@@ -1,22 +1,53 @@
 import React from "react";
-import { StackedBarChart } from "react-native-svg-charts";
+import { StackedBarChart, BarChart, Grid } from "react-native-svg-charts";
 import { StyleSheet, View } from "react-native";
 import XAxis from "react-native-svg-charts/src/x-axis";
 
 class DailySummaryStackChart extends React.PureComponent {
   getChart(data) {
-    const keys = ["goal", "daily"];
     const colors = ["#7b4173", "#a55194"];
+
+    const barData = [
+      {
+        data: data.map((item) => {
+          return {
+            value:
+              item.goal <= 0
+                ? 0
+                : item.label === "Calories"
+                ? item.goal / 10
+                : item.goal,
+          };
+        }),
+        svg: {
+          fill: colors[0],
+        },
+      },
+      {
+        data: data.map((item) => {
+          return {
+            value:
+              item.daily <= 0
+                ? 0
+                : item.label === "Calories"
+                ? item.daily / 10
+                : item.daily,
+          };
+        }),
+        svg: {
+          fill: colors[1],
+        },
+      },
+    ];
     return (
       <React.Fragment>
-        <StackedBarChart
+        <BarChart
           style={local.chart}
-          keys={keys}
-          colors={colors}
-          data={data}
-          showGrid={true}
-          contentInset={{ top: 20, bottom: 30 }}
+          data={barData}
+          yAccessor={({ item }) => item.value}
+          contentInset={{ top: 40, bottom: 40 }}
         />
+
         <XAxis
           style={local.axis}
           data={data}
@@ -31,18 +62,16 @@ class DailySummaryStackChart extends React.PureComponent {
   render() {
     let chartCalories = this.props.chartCalories;
     let chartNutrition = this.props.chartNutrition;
+    const chartData = [...chartCalories, ...chartNutrition];
     if (chartCalories !== null && chartNutrition !== null)
       return (
-        <React.Fragment>
+        <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
           <View style={local.chartContainer}>
             <View style={local.caloriesContainer}>
-              {this.getChart(chartCalories)}
-            </View>
-            <View style={local.nutritionContainer}>
-              {this.getChart(chartNutrition)}
+              {this.getChart(chartData)}
             </View>
           </View>
-        </React.Fragment>
+        </View>
       );
   }
 }
@@ -51,15 +80,12 @@ const local = StyleSheet.create({
   chartContainer: {
     flexDirection: "row",
     height: 250,
-    width: "98%",
+    width: "95%",
+    alignItems: "flex-start",
   },
 
   caloriesContainer: {
-    flex: 2,
-  },
-
-  nutritionContainer: {
-    flex: 3,
+    flex: 1,
   },
 
   chart: {
@@ -68,7 +94,7 @@ const local = StyleSheet.create({
   },
 
   axis: {
-    marginTop: -15,
+    marginTop: -10,
     height: 40,
     width: "100%",
   },

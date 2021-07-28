@@ -7,7 +7,7 @@ const ProfileScreenTopTabNavigator = createMaterialTopTabNavigator(
     Profile: {
       screen: ProfileTab,
       navigationOptions: {
-        title: "View/Edit Profile",
+        title: "View / Edit Profile",
       },
     },
   },

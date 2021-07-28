@@ -22,7 +22,7 @@ class EditFoodModal extends Component {
         </View>
         <View style={local.modalBottom}>
           <Button
-            title={"cancel"}
+            title={"Cancel"}
             onPress={() => this.props.hideEditFoodModal()}
           />
         </View>
@@ -70,7 +70,7 @@ const local = StyleSheet.create({
   },
 
   modalTitle: {
-    fontFamily: "American Typewriter",
+    fontFamily: "Copperplate",
     alignSelf: "center",
     fontSize: 25,
     marginTop: 60,

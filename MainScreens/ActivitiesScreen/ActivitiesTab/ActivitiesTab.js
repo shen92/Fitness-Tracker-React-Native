@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import ActivitiesList from "./ActivitiesList";
+import { Config } from "../../../Config";
 
 //Scroll Screen
 class ActivitiesTab extends Component {
@@ -62,7 +63,7 @@ class ActivitiesTab extends Component {
         Authorization: "Basic Og==",
       }),
     };
-    let url = "https://mysqlcs639.cs.wisc.edu/activities/";
+    const url = `${Config.BASE_URL}/activities/`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -71,7 +72,11 @@ class ActivitiesTab extends Component {
   }
 
   setActivitiesData(result) {
-    this.setState({ activities: result.activities });
+    this.setState({
+      activities: result.activities.sort((a1, a2) => {
+        return new Date(a2.date) - new Date(a1.date);
+      }),
+    });
   }
 
   //Component structure functions
@@ -126,7 +131,7 @@ class ActivitiesTab extends Component {
         Authorization: "Basic Og==",
       },
     };
-    let url = "https://mysqlcs639.cs.wisc.edu/activities/" + id;
+    const url = `${Config.BASE_URL}/activities/${id}`;
     fetch(url, requestOptions)
       .then((res) => res.json())
       .then((result) => {
@@ -151,7 +156,7 @@ class ActivitiesTab extends Component {
           //date: this.state.date.toISOString(),
         }),
       };
-      let url = "https://mysqlcs639.cs.wisc.edu/activities/" + id;
+      const url = `${Config.BASE_URL}/activities/${id}`;
       fetch(url, requestOptions)
         .then((res) => res.json())
         .then((result) => {
