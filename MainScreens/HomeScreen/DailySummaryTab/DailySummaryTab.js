@@ -320,7 +320,7 @@ class DailySummaryTab extends Component {
     let dailyFat = 0;
     for (const activity of Object.values(this.state.activities)) {
       if (this.isActivityToday(activity)) {
-        dailyCalories -= activity.calories;
+        // dailyCalories -= activity.calories;
         dailyActivity += activity.calories;
       }
     }

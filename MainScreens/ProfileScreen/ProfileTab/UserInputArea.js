@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { AsyncStorage, Text, TextInput, View, StyleSheet } from "react-native";
+import {
+  AsyncStorage,
+  Text,
+  TextInput,
+  View,
+  StyleSheet,
+  KeyboardAvoidingView,
+} from "react-native";
 import { Button } from "react-native-elements";
 
 class UserInputArea extends Component {
@@ -63,7 +70,9 @@ class UserInputArea extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         {this.getInput("First Name", this.props.data.firstName)}
         {this.getInput("Last Name", this.props.data.lastName)}
         {this.getInput(
@@ -84,7 +93,7 @@ class UserInputArea extends Component {
         )}
         {this.getInput("Goal Daily Fat (g)", this.props.data.goalDailyFat)}
         {this.getButtonArea()}
-      </React.Fragment>
+      </KeyboardAvoidingView>
     );
   }
 }

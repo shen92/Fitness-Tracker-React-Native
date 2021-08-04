@@ -25,7 +25,7 @@ class DailyCard extends Component {
     let dailyFat = 0;
     let activities = this.props.data[1];
     for (const activity of Object.values(activities)) {
-      dailyCalories -= activity.calories;
+      // dailyCalories -= activity.calories;
       dailyActivity += activity.calories;
     }
     let meals = this.props.data[2];
